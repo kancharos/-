@@ -1,0 +1,189 @@
+# -<!doctype html>
+<html lang="en">
+  <head>
+ <!-- Required meta tags -->
+ <base target="_top">
+     <!--font awesome-->
+    <script src="https://kit.fontawesome.com/ad42651166.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+ <link href='https://fonts.googleapis.com/css?family=Sarabun' rel='stylesheet' type='text/css'>
+ 
+<style type='text/css'>
+ 
+@font-face {
+  font-family: 'Sarabun';
+}
+ 
+body { font-family: 'Sarabun' !important; }
+ 
+::placeholder {
+  color: peachpuff;
+  font-size: 16px;
+  text-align: center;
+}
+ 
+</style>
+ 
+  </head>
+  <body>
+<div class="container">
+     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#"></a>
+            <h4 class="prompt text-white">📣 ระบบติดตามสถานะเอกสารเบิกสวัสดิการ </h4>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor03">
+                
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+ <div class="alert alert-secondary" role="alert" background-color: #ffed00>
+        <h6 class="font-dark-bold"><i class=></i>รูปแบบการกรอกเลข ECM  :</h6>
+        <p> หากออกในนามหน่วยงาน กรุณาพิมพ์ ตัวย่อหน่วยงานแล้วเว้นวรรค 1 ครั้งแล้วตามด้วยเลขที่เอกสาร
+        <h6 class="prompt text-danger">ตัวอย่าง หงปล-ห. 123/2564</h6> 
+      
+ </div> 
+ <br>
+ <div class="container">
+
+ <div class="row">
+ <div class="col">
+ <!-- 1 of 3 -->
+ </div>
+ <div class="col-md-auto">
+     <div class="card border-warning">     
+                   <h5 class="card-header text-white bg-warning"><i class="far fa-address-card mr-3"></i>   กรุณากรอกหมายเลขECM No. </h5>
+                   <div class="card-body"><input class="form-control form-control-lg" type="text" id="idStudent" placeholder="หมายเลขECM No." maxlength="18"></div>
+               </div> 
+ 
+ </div>
+    
+ <div class="col">
+ </div>
+ </div>
+ </div>
+ 
+ <div class="container">
+ <div class="row">
+ <div class="col-md">
+ </div>
+ <div class="col-md">
+ 
+ <br>
+   
+ </div>
+ <div class="col-md">
+ </div>
+ </div>
+ </div>
+ 
+ <div class="container">
+ <div class="row">
+ <div class="col">
+ </div>
+ <div class="col-">
+  <center> <input type="button" class = "btn btn-success btn-lg" id="search-btn" value = "ค้นหา" onclick ="findCode()" ></center>  
+ </div>
+ <!-- Result Header End -->
+ 
+ <br>
+ 
+ <div class="col">
+ </div>
+ </div>
+ 
+
+ <div class="row">
+ <div class="col">
+ </div>
+ <div class="col-md-auto">
+ 
+ <br>
+ 
+ <div class="container">
+ <div id="search">
+ <textarea style="border:none;resize:none;" id="search" readonly></textarea>
+ </div>
+ </div>
+ 
+ </div>
+ <div class="col">
+    </div>
+ </div>
+ </div>
+ 
+</div>
+<!-- Footer -->
+<div class="container">
+        <footer><br>
+            <div class="alert alert-primary" role="alert" background-color: #ffed00>
+        <h6 class="font-dark-bold"><i class=></i>**เงินโอนเข้าบัญชีวันทำการสุดท้ายของสัปดาห์ หลังจากอนุมัติแล้ว </h6>
+                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        </div>
+        <!-- ปิดแทก Footer -->
+<script>
+ 
+//document.getElementById("idStudent").addEventListener("input", findCode);
+  
+
+ function findCode() {
+ var code = document.getElementById("idStudent").value;
+ if(code.length = 18){
+  google.script.run.withSuccessHandler(updateData).getCode(code);
+
+ }
+}
+
+function updateData(data) {
+  if(data == '*ไม่พบข้อมูล'){
+    Swal.fire({
+  position: 'center',
+  icon: 'error',
+  title: 'เสียใจด้วย..ไม่พบข้อมูลของคุณ',
+  showConfirmButton: true,
+  //timer: 1500
+})
+ document.getElementById("search").innerHTML = data;
+ M.updateTexfields();
+}else{
+Swal.fire({
+  position: 'center',
+  icon: 'success',
+  title: 'ยินดีด้วย..พบข้อมูลของคุณ',
+  showConfirmButton: true,
+  //timer: 1500
+})
+ document.getElementById("search").innerHTML = data;
+ M.updateTexfields();
+
+  }
+}
+window.onload = function(){document.getElementById("home-btn").style.visibility="hidden"}
+
+function Home(){
+google.script.run.withSuccessHandler(function(url){
+window.open(url,'_top')
+}).getURL()
+
+}
+
+</script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+ 
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+ 
+</body>
+</html>
